@@ -12,4 +12,5 @@
   systemd:
     name: "{{ docker_app_name }}-docker-compose"
     enabled: true
+    state: started
   when: docker_systemd
