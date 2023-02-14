@@ -5,7 +5,10 @@ Before={{ docker_systemd_before }}
 {% endif %}
 Requires=docker.service
 {% if docker_systemd_requires is defined %}
-Requires={{ docker_systemd_requires }}
+    Requires={{ docker_systemd_requires }}
+{% endif %}
+{% if docker_systemd_requires is defined %}
+    RequiresMountsFor={{ docker_systemd_requires_mounts }}
 {% endif %}
 {% if docker_systemd_wants is defined %}
 Wants={{ docker_systemd_wants }}
@@ -14,6 +17,8 @@ After=docker.service
 {% if docker_systemd_after is defined %}
 After={{ docker_systemd_after }}
 {% endif %}
+StartLimitIntervalSec=0
+RequiresMountsFor=/mnt/nas /mnt/restore /mnt/docker
 
 [Service]
 Type=oneshot
@@ -21,6 +26,8 @@ RemainAfterExit=true
 WorkingDirectory={{ docker_compose_base }}/{{ docker_app_name }}
 ExecStart=/usr/local/bin/docker-compose up -d --remove-orphans
 ExecStop=/usr/local/bin/docker-compose down
+Restart=on-failure
+RestartSec=5
 
 [Install]
 WantedBy=multi-user.target

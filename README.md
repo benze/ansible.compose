@@ -36,6 +36,7 @@ Example Playbook
         docker_systemd: true
         # specify systemd dependencies
         docker_systemd_requires: container1-docker-compose.service
+        docker_systemd_requires_mounts: /mnt/docker
         docker_systemd_before: rsync-files.service
         docker_systemd_after: bind.service
         docker_systemd_wants: sshd.service
