@@ -23,6 +23,7 @@ StartLimitIntervalSec=0
 Type=oneshot
 RemainAfterExit=true
 WorkingDirectory={{ docker_compose_base }}/{{ docker_app_name }}
+ExecStartPre=/usr/local/bin/docker-compose pull
 ExecStart=/usr/local/bin/docker-compose up -d --remove-orphans
 ExecStop=/usr/local/bin/docker-compose down
 Restart=on-failure
