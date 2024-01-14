@@ -5,10 +5,10 @@ Before={{ docker_systemd_before }}
 {% endif %}
 Requires=docker.service
 {% if docker_systemd_requires is defined %}
-    Requires={{ docker_systemd_requires }}
+Requires={{ docker_systemd_requires }}
 {% endif %}
-{% if docker_systemd_requires is defined %}
-    RequiresMountsFor={{ docker_systemd_requires_mounts }}
+{% if docker_systemd_requires_mounts is defined %}
+RequiresMountsFor={{ docker_systemd_requires_mounts }}
 {% endif %}
 {% if docker_systemd_wants is defined %}
 Wants={{ docker_systemd_wants }}
@@ -18,7 +18,6 @@ After=docker.service
 After={{ docker_systemd_after }}
 {% endif %}
 StartLimitIntervalSec=0
-RequiresMountsFor=/mnt/nas /mnt/restore /mnt/docker
 
 [Service]
 Type=oneshot
