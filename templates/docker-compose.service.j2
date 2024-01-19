@@ -23,7 +23,9 @@ StartLimitIntervalSec=0
 Type=oneshot
 RemainAfterExit=true
 WorkingDirectory={{ docker_compose_base }}/{{ docker_app_name }}
-ExecStartPre=/usr/local/bin/docker-compose pull
+{% if docker_systemd_prestart_cmd is defined %}
+ExecStartPre=/usr/local/bin/docker-compose {{ docker_systemd_prestart_cmd }}
+{% endif %}
 ExecStart=/usr/local/bin/docker-compose up -d --remove-orphans
 ExecStop=/usr/local/bin/docker-compose down
 Restart=on-failure

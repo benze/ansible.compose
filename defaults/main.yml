@@ -4,3 +4,4 @@ docker_compose_version: 1.29.2
 docker_compose_template: ""
 docker_compose_files: []
 docker_systemd: false
+docker_systemd_prestart_cmd: pull
